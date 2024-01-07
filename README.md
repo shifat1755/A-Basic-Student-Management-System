@@ -5,4 +5,4 @@
   * Open the project in a code editor.
   * Connect database from project settings, follow this link if you are using PostgreSQL
       https://www.w3schools.com/django/django_db_connect.php
-You are good to go and you can run the server now.
+  * You are good to go and you can run the server now.
