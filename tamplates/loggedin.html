@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <h2>Welcome, {{ first_name }} {{ last_name }}!</h2>
+    <p>Email: {{ email }}</p>
+    <p>User Type: {{ usertype }}</p>
+
+    {% if students %}
+        <h2>All Students Information</h2>
+        <ul>
+            {% for student in students %}
+                <li>{{ student.first_name }} {{ student.last_name }} - {{ student.email }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <a href="{% url 'home' %}"><button type="button">Logout</button></a>
+</body>
+</html>
