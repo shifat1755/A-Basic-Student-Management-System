@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Welcome</title>
-</head>
-<body>
+<body style="background-color: rgb(87, 147, 163);" >
     <h2>Welcome, {{ first_name }} {{ last_name }}!</h2>
     <p>Email: {{ email }}</p>
     <p>User Type: {{ usertype }}</p>
 
     {% if students %}
-        <h2>All Students Information</h2>
-        <ul>
+        <h2>Students Information</h2>
+        <table style="background-color: black; width: 30%;">
+            <tr style="background-color: aliceblue;">
+                <th>Name</th>
+                <th>Email</th>
+                <th>View</th>
+            </tr>
             {% for student in students %}
-                <li>{{ student.first_name }} {{ student.last_name }} - {{ student.email }}</li>
+                <tr style="background-color: rgb(87, 147, 163)">
+                    <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td><a href="{% url 'View_student_details' student.username %}"><button type="button">View Details</button></a></td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
     {% endif %}
 
+    <br>
     <a href="{% url 'home' %}"><button type="button">Logout</button></a>
 </body>
 </html>

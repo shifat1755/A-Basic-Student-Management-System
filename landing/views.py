@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import CustomUser
@@ -61,18 +61,26 @@ def signin(request):
 
     return render(request, "signin.html")
 
+from django.contrib.auth.decorators import login_required
+
 def loggedin(request):
+    usertype = request.session.get('user_type', None)
+    students = None
+
     if request.user.is_authenticated:
-        usertype = request.session.get('user_type', None)
-        students=None
         if request.user.user_type == 'Teacher':
-            students = CustomUser.objects.filter(user_type='Student')
+            students = CustomUser.objects.filter(user_type='Student', is_superuser=False)
+
         return render(request, 'loggedin.html', {
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
             'usertype': request.user.user_type,
             'email': request.user.email,
-            'students':students
+            'students': students
         })
     else:
         return redirect('home')
+
+def view_student_details(request, username):
+    student = get_object_or_404(CustomUser, username__iexact=username, user_type='Student')
+    return render(request, 'student_details.html', {'student': student})
